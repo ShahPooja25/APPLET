@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add or Update Product</title>
+    <style>
+        .container {
+    position: relative;
+    top: 100px;
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background: rgb(0 0 0 );
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+input, textarea{
+    width: 92%;
+    height: 80%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgb(255, 255, 255);
+    font-size: 16px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+}
+select {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: 2px solid rgb(255, 255, 255);
+    color: white;
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+select option {
+    background: rgb(0, 0, 0);
+    color: white;
+    font-size: 16px;
+}
+
+button{
+    width: 50%;
+    height: 45px;
+    background: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0 , 0 , 0 , .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+}
+::placeholder{
+    color: #fff;
+}
+table {
+    
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px; 
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+        </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add or Update Product</h1>
+
+        <!-- Add Product Form -->
+        <h2>Add Product</h2>
+        <form action="{{ url_for('add_product') }}" method="POST">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" placeholder="Enter product name" required><br><br>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" placeholder="Enter Description" required></textarea><br><br>
+            
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="1">raw materials</option>
+                <option value="2">work-in-progress (WIP)</option>
+                <option value="3">finished goods</option>
+            </select><br><br>
+            
+            <label for="supplier">Supplier:</label>
+            <select id="supplier" name="supplier" required>
+                <option value="1">Supplier A</option>
+                <option value="2">Supplier B</option>
+                <option value="3">Supplier C</option>
+            </select><br><br>
+            
+            <label for="quantity">Quantity Available:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter Quantity available" required><br><br>
+            
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" placeholder="Enter Price" required><br><br>
+
+            <label for="sr">Serial Number:</label>
+            <input type="text" id="sr" name="sr" placeholder="Enter Serial Number" required><br><br>
+            
+            <button type="submit">Add Product</button>
+        </form>
+
+        <!-- Update Product Form -->
+        <h2>Update Product</h2>
+        <form action="{{ url_for('update_product') }}" method="POST">
+            <label for="sr">Serial Number:</label>
+            <input type="text" id="sr" name="sr" placeholder="Enter Serial Number" required><br><br>
+
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" placeholder="Enter product name" required><br><br>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" placeholder="Enter Description" required></textarea><br><br>
+            
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="1">raw materials</option>
+                <option value="2">work-in-progress (WIP)</option>
+                <option value="3">finished goods</option>
+            </select><br><br>
+            
+            <label for="supplier">Supplier:</label>
+            <select id="supplier" name="supplier" required>
+                <option value="1">Supplier A</option>
+                <option value="2">Supplier B</option>
+                <option value="3">Supplier C</option>
+            </select><br><br>
+            
+            <label for="quantity">Quantity Available:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter Quantity available" required><br><br>
+            
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" placeholder="Enter Price" required><br><br>
+            
+            <button type="submit">Update Product</button>
+        </form>
+        <h2>Delete Product</h2>
+        <form action="{{ url_for('delete_product') }}" method="POST">
+            <label for="deleteSr">Serial Number:</label>
+            <input type="text" id="deleteSr" name="sr" placeholder="Enter Serial Number" required><br><br>
+            <button type="submit" value="Delete Product">Delete Product</button>
+        </form>
+        
+        <h2>Product Table</h2>
+        <form action="{{ url_for('products') }}" method="post" id="filterForm">
+            <label for="categoryFilter">Select Category:</label>
+        <select id="categoryFilter" name="category">
+            <option value="1">raw materials</option>
+            <option value="2">work-in-progress (WIP)</option>
+            <option value="3">finished goods</option>
+        </select>
+        <button type="submit">Filter</button>
+
+        </form>
+        {%if request.method == 'POST'%}
+        <table id="product-table">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Supplier</th>
+                    <th>Quantity Available</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product[0] }}</td>
+                    <td>{{ product[1] }}</td>
+                    <td>{{ product[2] }}</td>
+                    <td>{{ product[3] }}</td>
+                    <td>{{ product[4] }}</td> 
+                    <td>{{ product[5] }}</td>
+                    <td>{{ product[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>
